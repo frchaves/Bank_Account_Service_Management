@@ -1,8 +1,3 @@
----
-title: "Simple App with Flask, SQLalchemy and Docker"
-tags: ["docker", "python", "docker-compose", "sqlalchemy"]
-license: "public-domain"
-slug: "simple-app-flask-sqlalchemy-and-docker"
 
 
 To test do "flask run"
