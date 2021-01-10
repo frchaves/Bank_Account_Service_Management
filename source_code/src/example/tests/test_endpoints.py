@@ -43,6 +43,7 @@ def test_create(client):
 
     assert response.status_code == 200
 
+
 def test_read_all_accounts(client):
     response = client.get('/Accounts/accounts')
 
@@ -82,10 +83,10 @@ def test_create_transaction(client):
             "receive_currency": "USD",
     }
     datajson = json.dumps(transaction)
-    response = client.post("/Accounts/transactions/add", data=datajson, content_type='application/json')
+    response = client.post("/Transactions/transactions/add", data=datajson, content_type='application/json')
     assert response.status_code == 200
 
 
 def test_read_all_transactions(client):
-    response = client.get('/Accounts/transactions')
+    response = client.get('/Transactions/transactions')
     assert response.status_code == 200

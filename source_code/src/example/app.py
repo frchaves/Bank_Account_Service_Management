@@ -16,16 +16,12 @@ bp = Blueprint('bp_routes', __name__)
 api = Api(bp, version='1.0', title='Account Service Management API',
     description='To manage bank accounts',)
 
-api = api.namespace('Accounts',
+
+account_ns = api.namespace('Accounts',
                    description='Operations of accounts')
 
-# api = api.namespace('Transactions',
-#                    description='Operations of transactions')
-# transaction_namespace = api.namespace("Transactions",
-#                                       description="Operations of transactions")
-
-# api.add_namespace("Transactions",
-#                     description="Operations of transactions")
+transaction_ns = api.namespace('Transactions',
+                   description='Operations of transactions')
 
 account_model = api.model('Account', {
     'name': fields.String,
@@ -44,7 +40,7 @@ transaction_model = api.model("Transactions", {
 })
 
 @bp.route('/accounts', methods=['GET'])
-@api.route('/accounts')
+@account_ns.route('/accounts')
 class ReadAllAccounts(Resource):
     def get(self):
         """
@@ -73,7 +69,7 @@ class ReadAllAccounts(Resource):
 
 
 @bp.route('/account/<iban>', methods=['GET'])
-@api.route('/account/<iban>')
+@account_ns.route('/account/<iban>')
 class ReadOneAccount(Resource):
     def get(self, iban):
         """
@@ -99,7 +95,7 @@ class ReadOneAccount(Resource):
 
 
 @bp.route('/account/add', methods=['POST'])
-@api.route('/account/add')
+@account_ns.route('/account/add')
 class CreateAccounts(Resource):
     @api.expect(account_model)
     def post(self):
@@ -134,7 +130,7 @@ class CreateAccounts(Resource):
 
 
 @bp.route('/edit/<iban>', methods=['PATCH'])
-@api.route('/account/edit/<iban>')
+@account_ns.route('/account/edit/<iban>')
 class UpdateAccount(Resource):
     @api.expect(account_model)
     def patch(self, iban):
@@ -164,7 +160,7 @@ class UpdateAccount(Resource):
 
 
 @bp.route('/remove/<iban>', methods=['DELETE'])
-@api.route('/account/remove/<iban>')
+@account_ns.route('/account/remove/<iban>')
 class DeleteAccount(Resource):
     def delete(self, iban):
         account = database.get_one(Accounts, iban=iban)
@@ -176,7 +172,7 @@ class DeleteAccount(Resource):
 ################## TRANSACTIONS ##########################
 
 @bp.route('/transactions', methods=['GET'])
-@api.route('/transactions')
+@transaction_ns.route('/transactions')
 class ReadTransactions(Resource):
     def get(self):
         transactions = database.get_all(Transactions)
@@ -197,7 +193,7 @@ class ReadTransactions(Resource):
 
 
 @bp.route('/transactions/add', methods=['POST'])
-@api.route('/transactions/add')
+@transaction_ns.route('/transactions/add')
 class CreateTransactions(Resource):
     @api.expect(transaction_model)
     def post(self):
@@ -216,8 +212,8 @@ class CreateTransactions(Resource):
 
             # Get accounts
 
-            sender_account = json.loads(ReadOneAccount.get(from_IBAN)[0])
-            receiver_account = json.loads(ReadOneAccount.get(to_IBAN)[0])
+            sender_account = json.loads(ReadOneAccount.get(self, from_IBAN)[0])
+            receiver_account = json.loads(ReadOneAccount.get(self, to_IBAN)[0])
 
             # sender_account = json.loads(read_one(from_IBAN)[0])
             # receiver_account = json.loads(read_one(to_IBAN)[0])

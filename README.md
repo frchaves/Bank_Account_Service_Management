@@ -3,6 +3,8 @@ title: "Simple App with Flask, SQLalchemy and Docker"
 tags: ["docker", "python", "docker-compose", "sqlalchemy"]
 license: "public-domain"
 slug: "simple-app-flask-sqlalchemy-and-docker"
+canonical_url: "https://haseebmajid.dev/blog/simple-app-flask-sqlalchemy-and-docker/"
+date: "2018-11-24"
 published: true
 cover_image: "images/cover.jpg"
 ---
