@@ -1,23 +1,31 @@
-<<<<<<< HEAD
----
-title: "Simple App with Flask, SQLalchemy and Docker"
-tags: ["docker", "python", "docker-compose", "sqlalchemy"]
-license: "public-domain"
-slug: "simple-app-flask-sqlalchemy-and-docker"
-canonical_url: "https://haseebmajid.dev/blog/simple-app-flask-sqlalchemy-and-docker/"
-date: "2018-11-24"
-published: true
-cover_image: "images/cover.jpg"
----
-=======
->>>>>>> 27aca3d05267d3512ae5dfb10a326c8bb58692cb
+
+title: "Account Service Management with Flask (flask_restx/restplus), SQLalchemy, Postgres and Docker. Unit tests with Pytest
 
 
-To test do "flask run"
+
+To start the Flask app
+
+docker-compose up --build
+
+# In a new terminal
+virtualenv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+# To load env variables
+export $(xargs < database.conf)
+export FLASK_APP=src/example/app.py
+flask run
+# Running on http://127.0.0.1:5000
+
+To try the unit tests, change to directory source_code/src/example/tests/test_endpoints.py and run
+
+python3 test_endpoints.py
+
 
 The Swagger documentation is available on http://localhost:5000/ 
 
-Limitations
+Limitations:
+3rd parties API: OpenIBAN
 https://openiban.com/ - only validates Bank IBANs for the following countries:
     Belgium
     Germany
