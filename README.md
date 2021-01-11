@@ -31,6 +31,19 @@ Running on http://127.0.0.1:5000
 
 python3 test_endpoints.py
 
+Alternatively to try using docker image:
+
+To build the docker image
+
+Head over to /source_code where the Dockerfile is located and run 
+
+sudo docker build --tag account-service-mgm  .
+
+
+To try the docker image, run the following command:
+
+sudo docker run --name account-service-mgm -p 5001:5001 account-service-mgm
+
 
 The Swagger documentation is available on http://localhost:5000/ 
 
